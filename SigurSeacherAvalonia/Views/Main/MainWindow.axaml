@@ -1,0 +1,476 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SigurSeacherAvalonia.Views.Main"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SigurSeacherAvalonia.Views.Main.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/car_13260.ico"
+        Title="SigurSeacherAvalonia"
+		WindowStartupLocation="CenterScreen"
+		MinHeight="500"
+		MinWidth="800"
+		Height="500"
+		Width="800">
+
+	<Window.Styles>
+		<Style Selector="Button">
+			<Setter Property="Width" Value="120"/>
+
+		</Style>
+
+	</Window.Styles>
+
+    <Grid 
+		RowDefinitions="126 * 8"
+		Background="#f0f0f0" 
+		TabIndex="0">
+		
+		<Grid 
+			Grid.Row="0"
+			ColumnDefinitions="282 206 126 126 *"
+			RowDefinitions="30 43 40 13" 
+			Background="#f0f0f0">
+
+			<Label
+				Grid.Column="0"
+				Grid.Row="1"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				FontSize="20"
+				Content="Номер автомобиля:"
+			/>
+			<TextBox
+				Name = "DataFilterTextBox"
+				Grid.Column="1"
+				Grid.Row="1"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				VerticalContentAlignment="Center"
+				Width="200"
+				Height="43"
+				MaxLength="6"
+				FontSize="20"
+				CornerRadius="0"
+				TabIndex="1"
+				GotFocus="InputGotFocus"
+				LostFocus="InputLostFocus"
+				KeyUp="SearchViaEnterButton"
+			/>
+			<Button
+				Name = "SearchButton"
+				Grid.Column="2"
+				Grid.Row="1"
+				Content="Найти"
+				TabIndex="2"
+				Click="SearchButtonClicked"
+			/>
+			<Button
+				Name = "ClearButton"
+				Grid.Column="3"
+				Grid.Row="1"
+				Content="Очистить"
+				TabIndex="3"			
+				Click="ClearButtonClicked"
+			/>
+			<CheckBox
+				Name = "ExpiredCheckBox"
+				Grid.Column="0"
+				Grid.ColumnSpan="5"
+				Grid.Row="2"
+				Width="210"
+				Height="36"
+				Margin="282,5"
+				CornerRadius="0"
+				FontSize="20"
+				IsThreeState="False"
+				Content="в т.ч. истекшие">
+
+
+				<CheckBox.Styles>
+					<Style Selector="CheckBox/template/ Path#CheckGlyph">
+						<Setter Property="Fill" Value="Green"/>
+					</Style>
+				</CheckBox.Styles>
+				
+				
+			</CheckBox>
+		</Grid>
+
+		<DataGrid
+				Name="CarsGrid"
+				Grid.Row="1"
+				ItemsSource="{Binding Cars}"
+				IsReadOnly="True"
+				GridLinesVisibility="All"
+				HorizontalGridLinesBrush="Gray"
+				VerticalGridLinesBrush="Gray"
+				UseLayoutRounding="False"
+				BorderBrush="Gray"
+				BorderThickness="1"
+				Focusable="False">
+
+			<DataGrid.Styles>
+				<Style Selector="ScrollBar">
+					<Setter Property="AllowAutoHide" Value="False"/>
+				</Style>
+			</DataGrid.Styles>
+			
+				<DataGrid.Columns>
+
+					<DataGridTemplateColumn Width="110" CanUserSort="True"  SortMemberPath="CarNumber" >
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="20"
+									Width="190"
+									Margin="-20,0,20,0"
+									Padding="15,5"
+								    HorizontalAlignment="Left"
+									Background="White"
+									IsHitTestVisible="False"
+									Content="Номер"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border 
+									Background="#ffffce">
+									<TextBlock
+										FontSize="20"
+										VerticalAlignment="Center"
+										Padding="5,0"
+										FontWeight="Bold"
+										Background="#ffffce"
+										TextWrapping="Wrap"
+										IsHitTestVisible="False"
+										Focusable="False"
+										Text="{Binding CarNumber, Mode=OneWay}" />
+									</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+
+					<DataGridTemplateColumn MinWidth="90" Width="*" CanUserSort="True" SortMemberPath="Model" >
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="20"
+								    MinWidth="500"
+									Margin="-20,0,20,0"
+									Padding="15,5"
+									HorizontalAlignment="Left"
+									Background="White"
+									Content="Модель"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border
+									Background="#ffffce">
+									<TextBlock
+										FontSize="20"
+										VerticalAlignment="Center"
+										Padding="5,0"
+										Background="#ffffce"
+										TextWrapping="Wrap"
+										Focusable="False"
+										Text="{Binding Model, Mode=OneWay}" />
+									</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+
+					<DataGridTemplateColumn Width="130"  CanUserSort="True" SortMemberPath="ExpirationDate">
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="20"
+									Width="150"
+									Margin="-20,0,20,0"
+									Padding="15,5"
+									HorizontalAlignment="Left"
+									Background="White"
+									Content="Истекает"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border 
+									Classes.IsExpired="{Binding IsExpired}" Classes.NotExpired="{Binding !IsExpired}">
+
+									<Border.Styles>
+										<Style Selector="Border.IsExpired">
+											<Style.Setters>
+												<Setter Property="Background" Value="#ffcece"/>
+											</Style.Setters>
+										</Style>
+										<Style Selector="Border.NotExpired">
+											<Style.Setters>
+												<Setter Property="Background" Value="#ffffce"/>
+											</Style.Setters>
+										</Style>
+									</Border.Styles>
+									
+									<TextBlock
+										Classes.IsExpired="{Binding IsExpired}" 
+										Classes.NotExpired="{Binding !IsExpired}"
+										FontSize="20"
+										VerticalAlignment="Center"
+										Padding="5,0"
+										TextWrapping="Wrap"
+										Text="{Binding ExpirationDate, Mode=OneWay}" >
+
+										<TextBlock.Styles>
+											<Style Selector="TextBlock.IsExpired">
+												<Style.Setters>
+													<Setter Property="Background" Value="#ffcece"/>
+												</Style.Setters>
+											</Style>
+											<Style Selector="TextBlock.NotExpired">
+												<Style.Setters>
+													<Setter Property="Background" Value="#ffffce"/>
+												</Style.Setters>
+											</Style>
+										</TextBlock.Styles>
+									
+									</TextBlock>
+								</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+
+					<DataGridTemplateColumn MinWidth="200" Width="*" CanUserSort="True" SortMemberPath="Owner">
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="20"
+									MinWidth="500"
+									Margin="-20,0,20,0"
+									Padding="15,5"
+									HorizontalAlignment="Left"
+									Background="White"
+									Content="ФИО владельца"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border
+									Background="#ffffce">
+									<TextBlock
+										FontSize="20"
+										VerticalAlignment="Center"
+										Padding="5,0"
+										FontWeight="Medium"
+										Background="#ffffce"
+										TextWrapping="WrapWithOverflow"
+										Text="{Binding Owner, Mode=OneWay}" />
+									</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+
+					<DataGridTemplateColumn MinWidth="234" Width="*" CanUserSort="True" SortMemberPath="Comments">
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Label
+									FontSize="20"
+									MinWidth="500"
+									Margin="-20,0,20,0"
+									Padding="15,5"
+									HorizontalAlignment="Left"
+									Background="White"
+									Content="Комментарий"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border
+									Background="#ffffce">
+									<TextBlock
+										FontSize="20"
+										MinWidth="200"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Padding="5,0,15,0"
+										Background="#ffffce"
+										TextWrapping="Wrap"
+										Text="{Binding Comments, Mode=OneWay}" />
+									</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+				</DataGrid.Columns>
+			
+			</DataGrid>		
+	</Grid>
+
+</Window>
+
+
+<!--
+
+					<DataGridTemplateColumn Width="0">
+						<DataGridTemplateColumn.HeaderTemplate>
+							<DataTemplate>
+								<Rectangle
+									Height="32"
+									Width="0"/>
+							</DataTemplate>
+						</DataGridTemplateColumn.HeaderTemplate>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Border
+									Background="#ffffce">
+									
+								</Border>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
+
+
+
+
+
+
+
+
+			<ScrollViewer
+				Name="Scroll"
+				
+				AllowAutoHide="False"
+				VerticalScrollBarVisibility="Visible">
+			</ScrollViewer>
+
+
+
+
+
+				<DataGridTemplateColumn Width="100" CanUserSort="True"  CanUserResize="True">
+					<DataGridTemplateColumn.HeaderTemplate>
+						<DataTemplate>
+							<TextBox
+								BorderThickness="0"
+								FontSize="16"
+								Width="100"
+								VerticalContentAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Background="White"
+								CornerRadius="0"
+								IsHitTestVisible="False"
+								Text="Номер" />
+						</DataTemplate>
+					</DataGridTemplateColumn.HeaderTemplate>
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBox
+								CornerRadius="0"
+								FontSize="16"
+								FontWeight="Bold"
+								VerticalContentAlignment="Center"
+								
+								BorderThickness="0"
+								Background="#ffffce"
+								TextWrapping="Wrap"
+								IsHitTestVisible="False"
+								IsReadOnly="True"
+								Focusable="False"
+								Text="{Binding CarNumber, Mode=OneWay}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+
+
+
+
+		<Border
+			Name="CarsGridBorder"
+			Grid.Row="1"
+			Background="LightGray"
+			BorderBrush="Black"
+			BorderThickness="1">
+
+
+
+			<DataGrid.Styles>
+				<Style Selector="DataGridCell /template/ ContentPresenter">
+					<Setter Property="BorderBrush" Value="Red" />
+					<Setter Property="BorderThickness" Value="1" />
+				</Style>
+			</DataGrid.Styles>
+
+
+
+
+
+
+			<DataGrid.Styles>
+				<Style Selector="TextBlock">
+					<Setter Property="TextWrapping" Value="Wrap" />
+				</Style>
+			</DataGrid.Styles>
+
+
+				<DataGridTextColumn
+					Header="Номер"
+					Width="100"
+					FontSize="16"
+					FontWeight="Bold"
+					Binding="{Binding CarNumber}"
+					CanUserSort="True"/>
+
+				<DataGridTextColumn
+					Header="Модель"
+					MinWidth="100"
+					Width="*"
+					FontSize="16"
+					Binding="{Binding Model}"
+					CanUserSort="True"/>
+
+				<DataGridTextColumn
+					Header="Истекает"
+					Width="120"
+					FontSize="16"
+					Binding="{Binding ExpirationDate}"
+					CanUserSort="True"/>
+
+				<DataGridTextColumn
+					Header="ФИО владельца"
+					MinWidth="200"
+					Width="*"
+					FontSize="16"
+					Binding="{Binding Owner}"
+					CanUserSort="True"/>
+
+				<DataGridTextColumn
+					Header="Комментарий"
+					MinWidth="260"
+					Width="*"
+					FontSize="16"
+					Binding="{Binding Comments}"
+					CanUserSort="True"/>
+					
+					
+					
+					
+					
+				<DataGridTemplateColumn Header="Номер">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBox 
+								BorderThickness="0" 
+								Background="{Binding Background, Mode=OneWay}" 
+								TextWrapping="Wrap" 
+								Text="{Binding CarNumber, Mode=OneWay}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>		
+
+-->

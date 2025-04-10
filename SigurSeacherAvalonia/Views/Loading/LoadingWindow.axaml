@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="67"
+		Width="200"
+		Height="67"
+        x:Class="SigurSeacherAvalonia.Views.Loading.LoadingWindow"
+		WindowStartupLocation="CenterScreen"
+		SystemDecorations="None">
+
+
+	<Window.Styles>
+		<Style Selector="Label.FirstPoint">
+			<Style.Animations>
+				<Animation Duration="0:0:1"  IterationCount="INFINITE">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0.17" />
+					</KeyFrame>
+					<KeyFrame Cue="50%">
+						<Setter Property="Opacity" Value="0.57" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="1" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="Label.SecondPoint">
+			<Style.Animations>
+				<Animation Duration="0:0:1"  IterationCount="INFINITE">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="1" />
+					</KeyFrame>
+					<KeyFrame Cue="50%">
+						<Setter Property="Opacity" Value="0.17" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="0.57" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="Label.ThirdPoint">
+			<Style.Animations>
+				<Animation Duration="0:0:1"  IterationCount="INFINITE">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0.57" />
+					</KeyFrame>
+					<KeyFrame Cue="50%">
+						<Setter Property="Opacity" Value="1" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="0.17" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+	</Window.Styles>
+	
+	
+	<Border
+		Background="Bisque"
+		BorderBrush="LightBlue"
+		BorderThickness="10">
+		
+		<Grid
+			ColumnDefinitions="* 70 10 10 10 *">
+
+			<Label
+				Grid.Column="1"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				FontSize="20"
+				Content="Поиск"/>
+
+			<Label
+				Grid.Column="2"
+				Classes="FirstPoint"
+				Padding="0,2"
+				FontSize="30"
+				Content="."/>
+			<Label
+				Grid.Column="3"
+				Classes="SecondPoint"
+				Padding="0,2"
+				FontSize="30"
+				Content="."/>
+			<Label
+				Grid.Column="4"
+				Classes="ThirdPoint"
+				Padding="0,2"
+				FontSize="30"
+				Content="."/>
+			
+		</Grid>
+		
+
+		
+	</Border>
+	
+</Window>

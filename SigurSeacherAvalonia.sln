@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigurSeacherAvalonia", "SigurSeacherAvalonia\SigurSeacherAvalonia.csproj", "{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{1CA5A689-293C-442D-976D-5A2000714AC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{4B610571-DCA2-436E-BF4C-7F756E15A59D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E} = {4B610571-DCA2-436E-BF4C-7F756E15A59D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {899609A9-6882-4B80-AA85-B5974EE683F1}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,415 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SigurSeacherAvalonia.Views.Main.ViewModel"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+        x:Class="SigurSeacherAvalonia.Views.Main.MainWindow_2"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="SigurSeacherAvalonia"
+		WindowStartupLocation="CenterScreen"
+		
+		MinHeight="500"
+		MinWidth="800"
+		Height="500"
+		Width="800">
+	
+
+	<Grid
+		RowDefinitions="126 36 *"
+		Background="LightGray"
+		TabIndex="0">
+
+		<Grid
+			Grid.Row="0"
+			ColumnDefinitions="282 206 116 116 *"
+			RowDefinitions="30 43 40 13"
+			Background="LightGray">
+
+			<Label
+				Name = "DataFilterLabel"
+				Grid.Column="0"
+				Grid.Row="1"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				FontSize="20"
+				Content="Номер автомобиля:"/>
+
+			<TextBox
+				Name = "DataFilterTextBox"
+				Grid.Column="1"
+				Grid.Row="1"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				VerticalContentAlignment="Center"
+				Width="200"
+				Height="43"
+				MaxLength="6"
+				FontSize="20"
+				CornerRadius="0"
+				TabIndex="1"/>
+
+			<Button
+				Name = "SearchFilterButton"
+				Grid.Column="2"
+				Grid.Row="1"
+				Width="110"
+				Height="43"
+				CornerRadius="0"
+				FontSize="16"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				Content="Найти"
+				TabIndex="2"
+				Click="SearchButtonClicked"/>
+
+			<Button
+				Name = "ClearFilterButton"
+				Grid.Column="3"
+				Grid.Row="1"
+				Width="110"
+				Height="43"
+				CornerRadius="0"
+				FontSize="16"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				Content="Очистить"
+				TabIndex="3"
+				Click="ClearButtonClicked"/>
+
+			<CheckBox
+				Name = "ExpiredCheckBox"
+				Grid.Column="0"
+				Grid.ColumnSpan="4"
+				Grid.Row="2"
+				Width="110"
+				CornerRadius="0"
+				Margin="282,0"
+				FontSize="16"
+				IsThreeState="False"
+				> Истекшие </CheckBox>
+
+		</Grid>
+
+		<Grid
+			Name="Headers"
+			
+			Grid.Row="1">
+			
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100"></ColumnDefinition>
+				<ColumnDefinition MinWidth="110" Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="120"></ColumnDefinition>
+				<ColumnDefinition MinWidth="190" Width="*"></ColumnDefinition>
+				<ColumnDefinition MinWidth="279" Width="*" ></ColumnDefinition>
+				<ColumnDefinition Width="1" ></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+
+			<Border
+				Grid.Column="0"
+				Background="White"
+				BorderBrush="Black"
+				BorderThickness="1"
+				Tapped="SortByCarNumber">
+
+				<Grid
+					ColumnDefinitions="75 * 20">
+
+					<Label
+						Grid.Column="0"
+						FontSize="20"
+						CornerRadius="0"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"
+						Content="Номер"/>
+					<Label
+						Name="NumberSortMark"
+						Grid.Column="2"
+						Width="20"
+						FontSize="10"
+						FontFamily="{StaticResource FA}"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"/>
+
+				</Grid>
+			</Border>
+
+			<Border
+				Grid.Column="1"
+				Margin="-1,0"
+				Background="White"
+				BorderBrush="Black"
+				BorderThickness="1"
+				Tapped="SortByCarModel">
+
+				<Grid
+					ColumnDefinitions="90 * 20">
+					
+					<Label
+						Grid.Column="0"
+						FontSize="20"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"
+						Focusable="False"
+						Content="Модель"/>
+
+					<Label
+						Name="ModelSortMark"
+						Grid.Column="2"
+						Width="20"
+						FontSize="10"
+						FontFamily="{StaticResource FA}"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"/>
+				</Grid>
+			</Border>
+
+			<Border
+				Grid.Column="2"
+				Margin="-1,0"
+				Background="White"
+				BorderBrush="Black"
+				BorderThickness="1"
+				Tapped="SortByExpirationDate">
+
+				<Grid
+					ColumnDefinitions="100 * 20">
+					
+					<Label
+						Grid.Column="0"
+						FontSize="20"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"
+						Focusable="False"
+						Content="Истекает"/>
+
+					<Label
+						Name="DateSortMark"
+						Grid.Column="2"
+						Width="20"
+						FontSize="10"
+						FontFamily="{StaticResource FA}"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"/>	
+					
+				</Grid>
+			</Border>
+
+			<Border
+				Grid.Column="3"
+				Margin="-1,0"
+				Background="White"
+				BorderBrush="Black"
+				BorderThickness="1"
+				Tapped="SortByOwner">
+
+				<Grid
+					ColumnDefinitions="170 * 20">
+					
+					<Label
+						Grid.Column="0"
+						FontSize="20"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"
+						Focusable="False"
+						Content="ФИО владельца"/>
+					
+					<Label
+						Name="OwnerSortMark"
+						Grid.Column="2"
+						Width="20"
+						FontSize="10"
+						FontFamily="{StaticResource FA}"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"/>
+					
+				</Grid>
+			</Border>
+
+			<Border
+				Grid.Column="4"
+				Margin="-1,0"
+				Background="White"
+				BorderBrush="Black"
+				BorderThickness="1"
+				Tapped="SortByCarComment">
+
+				<Grid
+					ColumnDefinitions="170 * 20">
+					
+					<Label
+						Grid.Column="0"
+						FontSize="20"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"
+						Focusable="False"
+						Content="Комментарий"/>
+
+					<Label
+						Name="CommentSortMark"
+						Grid.Column="2"
+						Width="20"
+						FontSize="10"
+						FontFamily="{StaticResource FA}"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Background="White"/>
+
+				</Grid>
+			</Border>
+
+		</Grid>
+		
+		<Border
+			Grid.Row="2"
+			BorderBrush="Gray"
+			BorderThickness="1">
+			
+			<ScrollViewer
+				Name="Scroller"
+				AllowAutoHide="False"
+				Width="798"
+				VerticalScrollBarVisibility="Visible">
+
+				<ItemsControl
+					Name="Cars"
+					ItemsSource="{Binding  Path = Cars,  Mode=OneWay }">
+
+					<ItemsControl.ItemTemplate>
+					<DataTemplate>
+
+						<Grid
+							Margin="0,-1">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100"></ColumnDefinition>
+								<ColumnDefinition Width="110"></ColumnDefinition>
+								<ColumnDefinition Width="120"></ColumnDefinition>
+								<ColumnDefinition Width="190"></ColumnDefinition>
+								<ColumnDefinition Width="263"></ColumnDefinition>
+								<ColumnDefinition Width="1"></ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							
+							<Border
+								Grid.Column="0"
+								Background="#ffffce"
+								BorderBrush="Gray"
+								BorderThickness="1">
+								
+								<TextBlock
+									FontSize="20"
+									FontWeight="Bold"
+									IsHitTestVisible="False"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Padding="5,0"
+									Text="{Binding Path=CarNumber, Mode=OneWay}"/>
+							</Border>
+
+							<Border
+								Grid.Column="1"
+								Background="#ffffce"
+								BorderBrush="Gray"
+								Margin="-1,0"
+								BorderThickness="1">
+								
+								<TextBlock
+									FontSize="20"
+									IsHitTestVisible="False"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Padding="5,0"
+									TextWrapping="Wrap"
+									Text="{Binding Path=Model, Mode=OneWay}"/>
+							</Border>
+
+
+							<Border
+								Grid.Column="2"
+								Background="{Binding Path=Background, Mode=OneWay}"
+								BorderBrush="Gray"
+								Margin="-1,0"
+								BorderThickness="1">
+								
+								<TextBlock
+									FontSize="20"
+									IsHitTestVisible="False"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Padding="5,0"
+									Text="{Binding Path=ExpirationDate, Mode=OneWay}"/>
+							</Border>
+
+							<Border
+								Grid.Column="3"
+								Background="#ffffce"
+								BorderBrush="Gray"
+								Margin="-1,0"
+								BorderThickness="1">
+								
+								<TextBlock
+									FontSize="20"
+									FontWeight="Medium"
+									IsHitTestVisible="False"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Padding="5,0"
+									TextWrapping="Wrap"
+									Text="{Binding Path=Owner, Mode=OneWay}"/>
+							</Border>
+
+							<Border
+								Grid.Column="4"
+								Background="#ffffce"
+								BorderBrush="Gray"
+								Margin="-1,0"
+								BorderThickness="1">
+
+								<TextBlock
+									FontSize="20"
+									IsHitTestVisible="False"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Padding="5,0"
+									TextWrapping="Wrap"
+									Text="{Binding Path=Comments, Mode=OneWay}"/>
+							</Border>
+							
+						</Grid>
+						
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+
+			</ItemsControl>
+			
+		</ScrollViewer>
+
+		</Border>
+		
+	</Grid>
+
+</Window>
+
+
+
+<!--
+
+		<ScrollBar
+			Name="Bar"
+			Grid.Row="2"
+			Grid.Column="1"
+			AllowAutoHide="False"
+			Visibility="Visible"
+			
+            HorizontalAlignment="Left"/>
+-->

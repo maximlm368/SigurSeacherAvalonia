@@ -1,0 +1,61 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="368" d:DesignHeight="217"
+		x:Class="SigurSeacherAvalonia.Views.Auth.AuthWindow"
+		WindowStartupLocation="CenterScreen"
+		CanResize="False"
+		Height="217"
+		Width="368"
+		Icon="/Assets/car_13260.ico"
+        Title="Авторизация">
+	
+	<Grid RowDefinitions="30 30 43 44 70">
+		
+		<Label
+			Grid.Row="1"
+			Margin="16,0"
+			Content="Пароль:"
+			FontSize="20"
+			/>
+		<TextBox
+			Name="PasswordTextBox"
+			Grid.Row="2"
+			Width="333"
+			Height="43"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Bottom"
+			CornerRadius="0"
+			VerticalContentAlignment="Center"
+			HorizontalContentAlignment="Left"
+			FontSize="16"
+			MaxLength="12"
+			PasswordChar="*"
+			/>
+		<Label
+			Name="PasswordErrorLabel"
+			Grid.Row="3"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			Content="Пароль введен неверно"
+			FontSize="16"
+			FontStyle="Italic"
+			Foreground="Red"
+			IsVisible="False"
+			/>
+		<Button
+			Name="CheckButton"
+			Grid.Row="4"
+			Width="336"
+			Height="48"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			CornerRadius="0"
+			Content="Войти"
+			IsCancel="True"
+			IsDefault="True"
+			Click="AuthClicked"
+			/>
+	</Grid>
+</Window>
