@@ -1,6 +1,8 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -11,6 +13,7 @@ using SigurSeacherAvalonia.Models.Filters;
 using SigurSeacherAvalonia.Views.ErrorMessage;
 using SigurSeacherAvalonia.Views.Loading;
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -40,22 +43,14 @@ public partial class MainWindow : Window
             SearchButton.FocusAdorner = null;
             ClearButton.FocusAdorner = null;
 
-            //AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer (SearchButton);
-
-            //foreach ( var children in adornerLayer.GetVisualChildren () )
-            //{
-            //    ContentPresenter contentPresenter = ( ContentPresenter ) children;
-            //    AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer (contentPresenter);
-            //    contentPresenter.BorderBrush = new SolidColorBrush (new Color (255, 200, 0, 0));
-
-            //    if ( adornerLayer != null )
-            //    {
-            //        adornerLayer.Background = new SolidColorBrush (new Color (255, 200, 0, 0));
-            //        Border adornedElement = new Border ();
-            //        adornerLayer.Children.Add (adornedElement);
-            //        AdornerLayer.SetAdornedElement (adornedElement, SearchButton);
-            //    }
-            //}
+            foreach ( Visual descendant in ExpiredCheckBox.GetVisualDescendants () ) 
+            {
+                if ( descendant.Name == "CheckGlyph" ) 
+                {
+                    Path checkGlyph = descendant as Path;
+                    checkGlyph.Fill = new SolidColorBrush (new Color (255, 0, 120, 25));
+                }  
+            }
 
             DataFilterTextBox.Focus (NavigationMethod.Tab); 
         };
@@ -150,24 +145,32 @@ public partial class MainWindow : Window
         SearchButton.BorderBrush = new SolidColorBrush (new Color (255, 0, 120, 215));
         SearchButton.BorderThickness = new Avalonia.Thickness (2);
 
-        if ( OsName == "Windows" ) 
+        if ( OsName == "Windows" )
         {
-            SetKeyBoardToENG ();
+            SetWindowsKeyBoardToENG ();
 
             return;
         }
 
         if ( OsName == "Linux" )
         {
+            SetLinuxKeyBoardToENG ();
+
             return;
         }
     }
 
 
-    private void SetKeyBoardToENG ( )
+    private void SetLinuxKeyBoardToENG ()
     {
-        string lang = "00000409";
-        int ret = LoadKeyboardLayout (lang, 1);
+        
+    }
+
+
+    private void SetWindowsKeyBoardToENG ( )
+    {
+        string language = "00000409";
+        int ret = LoadKeyboardLayout (language, 1);
         PostMessage (GetForegroundWindow (), 0x50, 1, ret);
     }
 

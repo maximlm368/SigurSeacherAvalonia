@@ -87,14 +87,17 @@
 				IsThreeState="False"
 				Content="в т.ч. истекшие">
 
-
 				<CheckBox.Styles>
-					<Style Selector="CheckBox/template/ Path#CheckGlyph">
-						<Setter Property="Fill" Value="Green"/>
+					<Style Selector="CheckBox/template/Grid>Grid>Viewbox>Panel>Panel">
+						<Setter Property="Background" Value="White"/>
+					</Style>
+
+					<Style Selector="CheckBox/template/Grid>Grid>Viewbox>Panel>Path#CheckGlyph">
+						<Setter Property="Fill" Value="#000000"/>
+						<Setter Property="IsVisible" Value="True"/>
+						<Setter Property="Stroke" Value="#000000"/>
 					</Style>
 				</CheckBox.Styles>
-				
-				
 			</CheckBox>
 		</Grid>
 

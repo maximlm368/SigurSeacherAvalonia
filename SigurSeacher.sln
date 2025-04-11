@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigurSeacherAvalonia", "SigurSeacherAvalonia\SigurSeacherAvalonia.csproj", "{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigurSeacher.Avalonia", "SigurSeacherAvalonia\SigurSeacher.Avalonia.csproj", "{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{1CA5A689-293C-442D-976D-5A2000714AC5}"
 EndProject
