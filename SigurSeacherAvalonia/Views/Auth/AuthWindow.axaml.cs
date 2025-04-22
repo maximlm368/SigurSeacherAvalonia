@@ -5,7 +5,7 @@ using SigurSeacherAvalonia.Configurations;
 
 namespace SigurSeacherAvalonia.Views.Auth;
 
-public partial class AuthWindow : Window
+public sealed partial class AuthWindow : Window
 {
     public bool UserIsAccepted { get; private set; }
 

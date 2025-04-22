@@ -1,29 +1,25 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Styling;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using SigurSeacherAvalonia.Models.Filters;
 using SigurSeacherAvalonia.Views.ErrorMessage;
 using SigurSeacherAvalonia.Views.Loading;
 using System;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace SigurSeacherAvalonia.Views.Main;
 
-public partial class MainWindow : Window
+public sealed partial class MainWindow : Window
 {
-    public static string OsName = "Windows";
-
     private MainWindowViewModel _viewModel;
+
+
     
 
     public MainWindow ()
@@ -86,11 +82,10 @@ public partial class MainWindow : Window
         LoadingWindow loadingModalWindow = new ();
         loadingModalWindow.ShowDialog (this);
 
-        DataFilter filter = new DataFilter ()
-        {
-            Name = DataFilterTextBox.Text.Trim (),
-            HasExpired = ExpiredCheckBox.IsChecked.Value
-        };
+        string carNum = DataFilterTextBox.Text.Trim ();
+        bool hasExpired = ExpiredCheckBox.IsChecked.Value;
+
+        DataFilter filter = new DataFilter (carNum, hasExpired);
 
         Task task = new Task (() =>
         {
@@ -144,20 +139,6 @@ public partial class MainWindow : Window
     {
         SearchButton.BorderBrush = new SolidColorBrush (new Color (255, 0, 120, 215));
         SearchButton.BorderThickness = new Avalonia.Thickness (2);
-
-        if ( OsName == "Windows" )
-        {
-            SetWindowsKeyBoardToENG ();
-
-            return;
-        }
-
-        if ( OsName == "Linux" )
-        {
-            SetLinuxKeyBoardToENG ();
-
-            return;
-        }
     }
 
 

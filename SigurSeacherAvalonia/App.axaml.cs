@@ -2,14 +2,13 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using SigurSeacherAvalonia.Views.Auth;
 using SigurSeacherAvalonia.Views.Main;
-using System;
 using System.Linq;
+using System.Text;
 
 namespace SigurSeacherAvalonia
 {
-    public partial class SigurSeacherApp : Application
+    public sealed partial class SigurSeacherApp : Application
     {
         public override void Initialize()
         {
@@ -20,28 +19,29 @@ namespace SigurSeacherAvalonia
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                MainWindow.OsName = OperatingSystem.IsWindows () ? "Windows" : "Linux";
-
                 DisableAvaloniaDataAnnotationValidation ();
 
-                AuthWindow auth = new ();
+                //AuthWindow auth = new ();
 
-                auth.Closed += ( s, e ) =>
-                {
-                    if ( auth.UserIsAccepted )
-                    {
-                        desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
-                        desktop.MainWindow.Show ();
-                    }
-                    else
-                    {
-                        desktop.Shutdown ();
-                    }
-                };
+                //auth.Closed += ( s, e ) =>
+                //{
+                //    if ( auth.UserIsAccepted )
+                //    {
+                //        desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
+                //        desktop.MainWindow.Show ();
+                //    }
+                //    else
+                //    {
+                //        desktop.Shutdown ();
+                //    }
+                //};
 
-                desktop.MainWindow = auth;
+                //desktop.MainWindow = auth;
+
+                desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
+                
             }
-
+            
             base.OnFrameworkInitializationCompleted();
         }
 

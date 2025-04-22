@@ -117,38 +117,38 @@ public partial class MainWindow_2 : Window
 
     private void SearchButtonClicked ( object sender, RoutedEventArgs args )
     {
-        if ( FilterValidate () )
-        {
-            DataFilterTextBox.Focus ();
-            return;
-        }
+        //if ( FilterValidate () )
+        //{
+        //    DataFilterTextBox.Focus ();
+        //    return;
+        //}
 
-        _isSearchStarted = true;
-        LoadingWindow loadingModalWindow = new LoadingWindow ();
-        loadingModalWindow.Show ();
+        //_isSearchStarted = true;
+        //LoadingWindow loadingModalWindow = new LoadingWindow ();
+        //loadingModalWindow.Show ();
 
-        EmptySortDirectionMarks ();
+        //EmptySortDirectionMarks ();
 
-        try
-        {
-            DataFilter filter = new DataFilter ()
-            {
-                Name = DataFilterTextBox.Text.Trim (),
-                HasExpired = ExpiredCheckBox.IsChecked.Value
-            };
+        //try
+        //{
+        //    DataFilter filter = new DataFilter ()
+        //    {
+        //        //CarNumber = DataFilterTextBox.Text.Trim (),
+        //        //HasExpired = ExpiredCheckBox.IsChecked.Value
+        //    };
 
-            _viewModel.SearchCarsBy (filter);
-        }
-        catch ( Exception ex )
-        {
-            MessageWindow errorMessage = new (ex.Message);
-            errorMessage.Show ();
-            errorMessage.Focus (NavigationMethod.Tab, KeyModifiers.None);
-        }
+        //    _viewModel.SearchCarsBy (filter);
+        //}
+        //catch ( Exception ex )
+        //{
+        //    MessageWindow errorMessage = new (ex.Message);
+        //    errorMessage.Show ();
+        //    errorMessage.Focus (NavigationMethod.Tab, KeyModifiers.None);
+        //}
 
-        DataFilterTextBox.Clear ();
-        DataFilterTextBox.Focus (NavigationMethod.Tab, KeyModifiers.None);
-        loadingModalWindow.Close ();
+        //DataFilterTextBox.Clear ();
+        //DataFilterTextBox.Focus (NavigationMethod.Tab, KeyModifiers.None);
+        //loadingModalWindow.Close ();
     }
 
 
@@ -180,27 +180,27 @@ public partial class MainWindow_2 : Window
 
         EmptySortDirectionMarks ();
 
-        try
-        {
-            DataFilter filter = new DataFilter ()
-            {
-                Name = DataFilterTextBox.Text.Trim (),
-                HasExpired = ExpiredCheckBox.IsChecked.Value
-            };
+        //try
+        //{
+        //    DataFilter filter = new DataFilter ()
+        //    {
+        //        CarNumber = DataFilterTextBox.Text.Trim (),
+        //        HasExpired = ExpiredCheckBox.IsChecked.Value
+        //    };
 
-            _viewModel.SearchCarsBy (filter);
-        }
-        catch ( Exception ex )
-        {
-            //MessageWindow errorMessage = new (ex.Message);
-            //errorMessage.ShowDialog (this);
-            //errorMessage.Focus (NavigationMethod.Tab, KeyModifiers.None);
-        }
+        //    _viewModel.SearchCarsBy (filter);
+        //}
+        //catch ( Exception ex )
+        //{
+        //    //MessageWindow errorMessage = new (ex.Message);
+        //    //errorMessage.ShowDialog (this);
+        //    //errorMessage.Focus (NavigationMethod.Tab, KeyModifiers.None);
+        //}
 
 
-        DataFilterTextBox.Clear ();
-        DataFilterTextBox.Focus (NavigationMethod.Tab, KeyModifiers.None);
-        loadingModalWindow.Close ();
+        //DataFilterTextBox.Clear ();
+        //DataFilterTextBox.Focus (NavigationMethod.Tab, KeyModifiers.None);
+        //loadingModalWindow.Close ();
     }
 
 

@@ -13,7 +13,6 @@ namespace SigurSeacherAvalonia.Views.Main.ViewModel;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly DataService _service;
     private bool _sortIsIncreasing;
     private Dictionary<CarComparationType, Action> _carSorters;
 
@@ -24,7 +23,7 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel ()
     {
         Cars = new ();
-        _service = new DataService ();
+
         _carSorters = new Dictionary<CarComparationType, Action>
         {
             { CarComparationType.ByNumber, SortByNumber },

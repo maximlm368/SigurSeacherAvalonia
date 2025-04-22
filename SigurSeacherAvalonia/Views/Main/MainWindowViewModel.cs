@@ -7,10 +7,8 @@ using System.Collections.Generic;
 
 namespace SigurSeacherAvalonia.Views.Main;
 
-public partial class MainWindowViewModel : ObservableObject
+public sealed partial class MainWindowViewModel : ObservableObject
 {
-    private readonly DataService _service = new ();
-
     [ObservableProperty]
     private IEnumerable<CarPass> _cars = [];
 
@@ -20,7 +18,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     internal string SearchCars (DataFilter filter)
     {
-        bool isSuccess = _service.TryGetCars (filter, out string error, out List<CarPass> carPasses);
+        bool isSuccess = DataService.TryGetCars (filter, out string error, out List<CarPass> carPasses);
 
         if ( !isSuccess )
         {
