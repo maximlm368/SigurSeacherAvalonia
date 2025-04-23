@@ -13,10 +13,7 @@ public sealed partial class AuthWindow : Window
     {
         InitializeComponent();
 
-        Loaded += ( s, a ) => { CheckButton.FocusAdorner = null;  PasswordTextBox.Focus (NavigationMethod.Tab); };
-
-
-        
+        Loaded += ( s, a ) => { PasswordTextBox.Focus (NavigationMethod.Tab); };
     }
 
 

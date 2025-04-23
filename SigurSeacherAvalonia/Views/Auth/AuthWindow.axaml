@@ -55,6 +55,7 @@
 			Content="Войти"
 			IsCancel="True"
 			IsDefault="True"
+			FocusAdorner="{x:Null					}"
 			Click="AuthClicked"
 			/>
 	</Grid>

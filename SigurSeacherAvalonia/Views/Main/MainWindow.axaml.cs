@@ -9,8 +9,6 @@ using Avalonia.VisualTree;
 using SigurSeacherAvalonia.Models.Filters;
 using SigurSeacherAvalonia.Views.ErrorMessage;
 using SigurSeacherAvalonia.Views.Loading;
-using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace SigurSeacherAvalonia.Views.Main;
@@ -36,9 +34,6 @@ public sealed partial class MainWindow : Window
 
         Loaded += ( s, a ) => 
         {
-            SearchButton.FocusAdorner = null;
-            ClearButton.FocusAdorner = null;
-
             foreach ( Visual descendant in ExpiredCheckBox.GetVisualDescendants () ) 
             {
                 if ( descendant.Name == "CheckGlyph" ) 
@@ -50,6 +45,8 @@ public sealed partial class MainWindow : Window
 
             DataFilterTextBox.Focus (NavigationMethod.Tab); 
         };
+
+
     }
 
 
@@ -131,37 +128,13 @@ public sealed partial class MainWindow : Window
     private void InputLostFocus ( object sender, RoutedEventArgs args )
     {
         SearchButton.BorderBrush = new SolidColorBrush (new Color (255, 150, 150, 150));
-        SearchButton.BorderThickness = new Avalonia.Thickness (1);
+        SearchButton.BorderThickness = new Thickness (1);
     }
 
 
     private void InputGotFocus ( object sender, GotFocusEventArgs e )
     {
         SearchButton.BorderBrush = new SolidColorBrush (new Color (255, 0, 120, 215));
-        SearchButton.BorderThickness = new Avalonia.Thickness (2);
+        SearchButton.BorderThickness = new Thickness (2);
     }
-
-
-    private void SetLinuxKeyBoardToENG ()
-    {
-        
-    }
-
-
-    private void SetWindowsKeyBoardToENG ( )
-    {
-        string language = "00000409";
-        int ret = LoadKeyboardLayout (language, 1);
-        PostMessage (GetForegroundWindow (), 0x50, 1, ret);
-    }
-
-
-    [DllImport ("user32.dll")]
-    public static extern IntPtr GetForegroundWindow ();
-
-    [DllImport ("user32.dll", CharSet = CharSet.Auto)]
-    public static extern bool PostMessage ( IntPtr hWnd, int Msg, int wParam, int lParam );
-
-    [DllImport ("user32.dll")]
-    static extern int LoadKeyboardLayout ( string pwszKLID, uint Flags );
 }

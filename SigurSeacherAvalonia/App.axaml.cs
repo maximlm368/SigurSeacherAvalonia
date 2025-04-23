@@ -4,7 +4,6 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using SigurSeacherAvalonia.Views.Main;
 using System.Linq;
-using System.Text;
 
 namespace SigurSeacherAvalonia
 {
@@ -39,7 +38,6 @@ namespace SigurSeacherAvalonia
                 //desktop.MainWindow = auth;
 
                 desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
-                
             }
             
             base.OnFrameworkInitializationCompleted();
