@@ -3,11 +3,11 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using SigurSeacherAvalonia.Configurations;
 
-namespace SigurSeacherAvalonia.Views.Auth;
+namespace SigurSeacherAvalonia.Views.AuthView;
 
 public sealed partial class AuthWindow : Window
 {
-    public bool UserIsAccepted { get; private set; }
+    public bool IsAccepted { get; private set; }
 
     public AuthWindow()
     {
@@ -21,13 +21,13 @@ public sealed partial class AuthWindow : Window
     {
         if ( PasswordTextBox.Text == Configuration.Instance.Password )
         {
-            UserIsAccepted = true;
+            IsAccepted = true;
             Close ();
         }
         else
         {
-            UserIsAccepted = false;
-            PasswordErrorLabel.IsVisible = true;
+            IsAccepted = false;
+            ErrorLabel.IsVisible = true;
             PasswordTextBox.Clear ();
             PasswordTextBox.Focus ();
         }

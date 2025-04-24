@@ -7,15 +7,31 @@
 
 	<Application.Resources>
 		<FontFamily x:Key="FontAwesome">/Assets/Fonts/Font Awesome 6 Free-Solid-900.otf#Font Awesome 6 Free Solid</FontFamily>
+		<Thickness x:Key="FocusedThicknes">2</Thickness>
+		<Thickness x:Key="UnfocusedThicknes">1</Thickness>
+		<Thickness x:Key="FocusPadding">10,7</Thickness>
+		<Thickness x:Key="UnfocusPadding">10,8</Thickness>
 	</Application.Resources>
-	
 
-  
-    <Application.Styles>
+
+	<Application.Styles>
 		<FluentTheme/>
 
 		<StyleInclude Source="/Styles/ButtonStyles.axaml"/>
-		
+
 		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
-    </Application.Styles>
+	</Application.Styles>
 </Application>
+
+
+<!--
+
+	<ResourceDictionary>
+		<ResourceDictionary.ThemeDictionaries>
+			<ResourceDictionary>
+				<SolidColorBrush x:Key='FocusedBorderBrush'>Blue</SolidColorBrush>
+			</ResourceDictionary>
+		</ResourceDictionary.ThemeDictionaries>
+	</ResourceDictionary>
+
+-->

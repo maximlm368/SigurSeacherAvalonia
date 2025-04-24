@@ -2,8 +2,9 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using SigurSeacherAvalonia.Views.Main;
+using SigurSeacherAvalonia.Views.MainView;
 using System.Linq;
+using SigurSeacherAvalonia.Views.AuthView;
 
 namespace SigurSeacherAvalonia
 {
@@ -20,30 +21,30 @@ namespace SigurSeacherAvalonia
             {
                 DisableAvaloniaDataAnnotationValidation ();
 
-                //AuthWindow auth = new ();
+                AuthWindow auth = new ();
 
-                //auth.Closed += ( s, e ) =>
-                //{
-                //    if ( auth.UserIsAccepted )
-                //    {
-                //        desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
-                //        desktop.MainWindow.Show ();
-                //    }
-                //    else
-                //    {
-                //        desktop.Shutdown ();
-                //    }
-                //};
+                auth.Closed += ( s, e ) =>
+                {
+                    if ( auth.IsAccepted )
+                    {
+                        desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
+                        desktop.MainWindow.Show ();
+                    }
+                    else
+                    {
+                        desktop.Shutdown ();
+                    }
+                };
 
-                //desktop.MainWindow = auth;
+                desktop.MainWindow = auth;
 
-                desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
+                //desktop.MainWindow = new MainWindow (new MainWindowViewModel ());
             }
             
             base.OnFrameworkInitializationCompleted();
         }
 
-        private void DisableAvaloniaDataAnnotationValidation()
+        private static void DisableAvaloniaDataAnnotationValidation()
         {
             // Get an array of plugins to remove
             var dataValidationPluginsToRemove =

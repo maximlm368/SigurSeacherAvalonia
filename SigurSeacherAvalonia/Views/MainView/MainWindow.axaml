@@ -1,19 +1,24 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:SigurSeacherAvalonia.Views.Main"
+        xmlns:vm="using:SigurSeacherAvalonia.Views.MainView"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="SigurSeacherAvalonia.Views.Main.MainWindow"
+		
+		xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+		
+		xmlns:avalonia_controls="using:Avalonia.Controls"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+        x:Class="SigurSeacherAvalonia.Views.MainView.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/car_13260.ico"
-        Title="SigurSeacherAvalonia"
-		WindowStartupLocation="CenterScreen"
 		MinHeight="500"
 		MinWidth="800"
 		Height="500"
 		Width="800"
-		xmlns:avalonia_controls="using:Avalonia.Controls">
+        Icon="/Assets/car_icon.ico"
+        Title="Поиск по БД СИГУР"
+		WindowStartupLocation="CenterScreen"
+		WindowState="Maximized">
 
 	<Window.Styles>
 		<Style Selector="Button">
@@ -29,87 +34,120 @@
 
 		<Grid
 			Grid.Row="0"
-			ColumnDefinitions="282 206 126 126 *"
+			ColumnDefinitions="50 232 206 131 131 *"
 			RowDefinitions="30 43 40 13"
 			Background="#f0f0f0">
 
 			<Label
-				Grid.Column="0"
+				Grid.Column="1"
 				Grid.Row="1"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center"
-				Foreground="Black"
 				FontSize="20"
 				Content="Номер автомобиля:"
 			/>
 			<TextBox
 				Name = "DataFilterTextBox"
-				Grid.Column="1"
+				Grid.Column="2"
 				Grid.Row="1"
-				HorizontalAlignment="Left"
-				VerticalAlignment="Center"
+				VerticalAlignment="Stretch"
 				VerticalContentAlignment="Center"
-				Width="200"
-				Height="43"
 				MaxLength="6"
 				FontSize="20"
 				CornerRadius="0"
 				Background="White"
 				TabIndex="1"
-				GotFocus="InputGotFocus"
-				LostFocus="InputLostFocus"
-				KeyUp="SearchViaEnterButton"
-			/>
+				Text="{Binding CarNumber}">
+
+				<i:Interaction.Behaviors>
+					<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="GotFocus">
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#0078d7"/>
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource FocusedThicknes}"/>
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource FocusPadding}"/>
+					</ia:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+				<i:Interaction.Behaviors>
+					<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="LostFocus">
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#969696"/>
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource UnfocusedThicknes}"/>
+						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource UnfocusPadding}"/>
+					</ia:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+				
+			</TextBox>
 			<Button
 				Name = "SearchButton"
-				Grid.Column="2"
-				Grid.Row="1"
-				Content="Найти"
-				Foreground="Black"
-				FocusAdorner="{x:Null}"
-				TabIndex="2"
-				Click="SearchButtonClicked"
-			/>
-			<Button
-				Name = "ClearButton"
 				Grid.Column="3"
 				Grid.Row="1"
-				Content="Очистить"
-				Foreground="Black"
-				FocusAdorner="{x:Null}"
+				HorizontalAlignment="Right"
+				VerticalContentAlignment="Center"
+				IsDefault="True"
+				TabIndex="2"
+				Command="{Binding SearchCommand}"
+				Content="Найти">
+
+				<Button.FocusAdorner>
+					<FocusAdornerTemplate>
+						<Border
+							BorderThickness="2"
+							BorderBrush="#0078d7">
+						</Border>
+					</FocusAdornerTemplate>
+				</Button.FocusAdorner>
+			</Button>
+			<Button
+				Name = "ClearButton"
+				Grid.Column="4"
+				Grid.Row="1"
+				HorizontalAlignment="Right"
 				TabIndex="3"
-				Click="ClearButtonClicked"
-			/>
+				Command="{Binding ClearCommand}"
+				Content="Очистить">
+
+				<Button.FocusAdorner>
+					<FocusAdornerTemplate>
+						<Border
+							BorderThickness="2"
+							BorderBrush="#0078d7">
+						</Border>
+					</FocusAdornerTemplate>
+				</Button.FocusAdorner>
+			</Button>
 			<CheckBox
-				Name = "ExpiredCheckBox"
-				Grid.Column="0"
-				Grid.ColumnSpan="5"
+				Grid.Column="2"
 				Grid.Row="2"
-				Width="210"
-				Height="36"
-				Margin="282,5"
+				HorizontalAlignment="Stretch"
 				CornerRadius="0"
 				FontSize="20"
-				Foreground="Black"
-				IsThreeState="False"
+				IsChecked="{Binding IsExpired}"
 				Content="в т.ч. истекшие">
 
 				<CheckBox.Styles>
-					<Style Selector="CheckBox/template/Grid>Grid>Viewbox>Panel>Panel">
+					<Style Selector="CheckBox /template/ Grid>Grid>Viewbox>Panel>Panel">
 						<Setter Property="Background" Value="White"/>
 					</Style>
-
 					<Style Selector="CheckBox/template/Grid>Grid>Viewbox">
 						<Setter Property="Height" Value="18"/>
 						<Setter Property="Width" Value="18"/>
 					</Style>
-
-					<Style Selector="CheckBox/template/Grid>Grid>Viewbox>Panel>Path#CheckGlyph">
-						<Setter Property="Fill" Value="#000000"/>
+					<Style Selector="CheckBox:checked/template/Path#CheckGlyph">
+						<Setter Property="Fill" Value="Blue"/>
 						<Setter Property="IsVisible" Value="True"/>
 						<Setter Property="Stroke" Value="#000000"/>
 					</Style>
+					<Style Selector="CheckBox/template/Grid>Grid">
+						<Setter Property="Margin" Value="2,0,0,0"/>
+					</Style>
 				</CheckBox.Styles>
+
+				<CheckBox.FocusAdorner>
+					<FocusAdornerTemplate>
+						<Border 
+							BorderThickness="2"
+							BorderBrush="#0078d7">
+						</Border>
+					</FocusAdornerTemplate>
+				</CheckBox.FocusAdorner>
 			</CheckBox>
 		</Grid>
 
@@ -343,198 +381,3 @@
 </Window>
 
 
-<!--
-
-				<Style Selector="avalonia_controls|Grid:pointerover">
-					<Setter Property="Background" Value="White"/>
-				</Style>
-
-
-				<Style Selector="avalonia_controls|Grid">
-					<Setter Property="VerticalAlignment" Value="Top"/>
-				</Style>
-
-
-                <Setter Property="Grid|DataGridRowsPresenter#PART_RowsPresenter.Background" Value="Black"/>
-
-
-
-				<Style Selector="avalonia_controls|Grid:pointerover">
-					<Setter Property="Background" Value="White"/>
-				</Style>
-
-
-					<DataGridTemplateColumn Width="0">
-						<DataGridTemplateColumn.HeaderTemplate>
-							<DataTemplate>
-								<Rectangle
-									Height="32"
-									Width="0"/>
-							</DataTemplate>
-						</DataGridTemplateColumn.HeaderTemplate>
-						<DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<Border
-									Background="#ffffce">
-									
-								</Border>
-							</DataTemplate>
-						</DataGridTemplateColumn.CellTemplate>
-					</DataGridTemplateColumn>
-
-
-
-
-
-
-
-
-			<ScrollViewer
-				Name="Scroll"
-				
-				AllowAutoHide="False"
-				VerticalScrollBarVisibility="Visible">
-			</ScrollViewer>
-
-
-
-
-
-				<DataGridTemplateColumn Width="100" CanUserSort="True"  CanUserResize="True">
-					<DataGridTemplateColumn.HeaderTemplate>
-						<DataTemplate>
-							<TextBox
-								BorderThickness="0"
-								FontSize="16"
-								Width="100"
-								VerticalContentAlignment="Center"
-								HorizontalContentAlignment="Center"
-								Background="White"
-								CornerRadius="0"
-								IsHitTestVisible="False"
-								Text="Номер" />
-						</DataTemplate>
-					</DataGridTemplateColumn.HeaderTemplate>
-					<DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBox
-								CornerRadius="0"
-								FontSize="16"
-								FontWeight="Bold"
-								VerticalContentAlignment="Center"
-								
-								BorderThickness="0"
-								Background="#ffffce"
-								TextWrapping="Wrap"
-								IsHitTestVisible="False"
-								IsReadOnly="True"
-								Focusable="False"
-								Text="{Binding CarNumber, Mode=OneWay}" />
-						</DataTemplate>
-					</DataGridTemplateColumn.CellTemplate>
-				</DataGridTemplateColumn>
-
-
-
-
-
-		<Border
-			Name="CarsGridBorder"
-			Grid.Row="1"
-			Background="LightGray"
-			BorderBrush="Black"
-			BorderThickness="1">
-
-
-
-			<DataGrid.Styles>
-				<Style Selector="DataGridCell /template/ ContentPresenter">
-					<Setter Property="BorderBrush" Value="Red" />
-					<Setter Property="BorderThickness" Value="1" />
-				</Style>
-			</DataGrid.Styles>
-
-
-
-
-
-
-			<DataGrid.Styles>
-				<Style Selector="TextBlock">
-					<Setter Property="TextWrapping" Value="Wrap" />
-				</Style>
-			</DataGrid.Styles>
-
-
-				<DataGridTextColumn
-					Header="Номер"
-					Width="100"
-					FontSize="16"
-					FontWeight="Bold"
-					Binding="{Binding CarNumber}"
-					CanUserSort="True"/>
-
-				<DataGridTextColumn
-					Header="Модель"
-					MinWidth="100"
-					Width="*"
-					FontSize="16"
-					Binding="{Binding Model}"
-					CanUserSort="True"/>
-
-				<DataGridTextColumn
-					Header="Истекает"
-					Width="120"
-					FontSize="16"
-					Binding="{Binding ExpirationDate}"
-					CanUserSort="True"/>
-
-				<DataGridTextColumn
-					Header="ФИО владельца"
-					MinWidth="200"
-					Width="*"
-					FontSize="16"
-					Binding="{Binding Owner}"
-					CanUserSort="True"/>
-
-				<DataGridTextColumn
-					Header="Комментарий"
-					MinWidth="260"
-					Width="*"
-					FontSize="16"
-					Binding="{Binding Comments}"
-					CanUserSort="True"/>
-					
-					
-					
-					
-					
-				<DataGridTemplateColumn Header="Номер">
-					<DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<TextBox 
-								BorderThickness="0" 
-								Background="{Binding Background, Mode=OneWay}" 
-								TextWrapping="Wrap" 
-								Text="{Binding CarNumber, Mode=OneWay}" />
-						</DataTemplate>
-					</DataGridTemplateColumn.CellTemplate>
-				</DataGridTemplateColumn>		
-
-
-
-
-=======================================================================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
--->

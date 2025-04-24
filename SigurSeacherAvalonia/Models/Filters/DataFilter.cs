@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SigurSeacherAvalonia.Models.Filters;
 
 internal sealed class DataFilter
 {
-    private readonly Dictionary<char, char> _latinToCyrillic = new () {{'e','е'}, {'t','т'}, {'y','у'}, {'o','о'}, {'p','р'}, {'a','а'}
-                                                                     , {'h','н'}, {'k','к'}, {'x','х'}, {'c','с'}, {'b','в'}, {'m','м'}};
-    private readonly Dictionary<char, char> _cyrillicToLatin = new () {{'е','e'}, {'т','t'}, {'у','y'}, {'о','o'}, {'р','p'}, {'а','a'}
-                                                                     , {'н','h'}, {'к','k'}, {'х','x'}, {'с','c'}, {'в','b'}, {'м','m'}};
+    private static readonly Dictionary<char, char> _glyphMap = new () 
+    {
+        {'e','е'}, {'t','т'}, {'y','у'}, {'o','о'}, {'p','р'}, {'a','а'}, {'h','н'}, {'k','к'}, {'x','х'}, {'c','с'}, {'b','в'}, {'m','м'},
+        {'е','e'}, {'т','t'}, {'у','y'}, {'о','o'}, {'р','p'}, {'а','a'}, {'н','h'}, {'к','k'}, {'х','x'}, {'с','c'}, {'в','b'}, {'м','m'}
+    };
+    private static readonly char [] _screenables = { '.', '*', '+', '?', '[', ']', '(', ')', '{', '}', '|' };
+    private static readonly char [] _ignorables = { '\'', '\\' };
+    private static readonly char [] _glyphs = new char [24];
 
-    private readonly char [] _screenables = { '.', '*', '+', '?', '[', ']', '(', ')', '{', '}', '|', '\\' };
-
-    public string CarNumber { get; private set; } = string.Empty;
-    public bool HasExpired { get; private set; } = false;
+    public string CarNumber { get; init; } = string.Empty;
+    public bool HasExpired { get; init; } = false;
+    public bool IsValid => ! string.IsNullOrWhiteSpace(CarNumber);
 
 
     internal DataFilter ( string carNumber, bool hasExpired ) 
@@ -24,31 +27,35 @@ internal sealed class DataFilter
     }
 
 
-    private string GetRegexp ( string carNumber )
+    private static string GetRegexp ( string carNumber )
     {
-        List<char> glyphs = [];
-        StringBuilder sb = new StringBuilder ();
+        byte position = 0;
 
         foreach ( char glyph in carNumber )
         {
-            if ( _latinToCyrillic.ContainsKey (glyph) )
+            char low = char.ToLowerInvariant (glyph);
+
+            //if ( _banedGlyphs.Contains (glyph) ) continue;
+
+            if ( _glyphMap.ContainsKey (low) )
             {
-                sb.Append (new char [] { '[', glyph, _latinToCyrillic [glyph], ']' });
-            }
-            else if ( _cyrillicToLatin.ContainsKey (glyph) )
-            {
-                sb.Append (new char [] { '[', glyph, _cyrillicToLatin [glyph], ']' });
+                _glyphs [position++] = '[';
+                _glyphs [position++] = low;
+                _glyphs [position++] = _glyphMap [low];
+                _glyphs [position++] = ']';
             }
             else if ( _screenables.Contains (glyph) )
             {
-                sb.Append (new char [] { '\\', '\\', glyph });
+                _glyphs [position++] = '\\';
+                _glyphs [position++] = '\\';
+                _glyphs [position++] = glyph;
             }
             else
             {
-                sb.Append (glyph);
+                _glyphs [position++] = glyph;
             }
         }
 
-        return sb.ToString ();
+        return new (_glyphs.AsSpan (0, position));
     }
 }

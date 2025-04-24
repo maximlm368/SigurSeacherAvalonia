@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace SigurSeacherAvalonia.Views.Loading;
+namespace SigurSeacherAvalonia.Views.LoadingView;
 
 public sealed partial class LoadingWindow : Window
 {

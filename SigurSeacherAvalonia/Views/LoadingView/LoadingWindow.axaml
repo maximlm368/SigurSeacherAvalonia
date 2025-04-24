@@ -2,12 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="67"
-		Width="200"
-		Height="67"
-        x:Class="SigurSeacherAvalonia.Views.Loading.LoadingWindow"
-		WindowStartupLocation="CenterScreen"
-		SystemDecorations="None">
+        mc:Ignorable="d" d:DesignWidth="" d:DesignHeight=""
+		x:Class="SigurSeacherAvalonia.Views.LoadingView.LoadingWindow"
+		WindowStartupLocation="CenterOwner"
+		SystemDecorations="None"
+		SizeToContent="WidthAndHeight"
+		Background="LightBlue"
+		Padding="10">
 
 
 	<Window.Styles>
@@ -60,14 +61,11 @@
 		</Style>
 	</Window.Styles>
 	
-	
-	<Border
-		Background="Bisque"
-		BorderBrush="LightBlue"
-		BorderThickness="10">
-		
-		<Grid
-			ColumnDefinitions="* 70 10 10 10 *">
+
+		<Grid 
+			Background="Bisque"
+			RowDefinitions="47"  
+			ColumnDefinitions="50 70 10 10 10 50">
 
 			<Label
 				Grid.Column="1"
@@ -96,9 +94,4 @@
 				Content="."/>
 			
 		</Grid>
-		
-
-		
-	</Border>
-	
 </Window>

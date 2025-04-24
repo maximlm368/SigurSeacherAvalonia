@@ -1,0 +1,108 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="" d:DesignHeight=""
+        x:Class="SigurSeacherAvalonia.Views.ErrorMessageView.MessageWindow"
+		xmlns:views="clr-namespace:SigurSeacherAvalonia.Views.ErrorMessageView; assembly=SigurSearcherAvalonia"
+		
+		SizeToContent="WidthAndHeight"
+		WindowStartupLocation="CenterOwner"
+		
+		SystemDecorations="None"
+		CanResize="False"
+		Focusable="True"
+		
+		ExtendClientAreaToDecorationsHint = "true"
+		ExtendClientAreaChromeHints = "NoChrome"
+		ExtendClientAreaTitleBarHeightHint = "0">
+
+	<Border
+		BorderBrush="Gray"
+		BorderThickness="1">
+		<Grid
+			RowDefinitions="18 100 1 74"
+			ColumnDefinitions="67 408">
+
+			<Label
+				Classes="ModalLabel"
+				Grid.Row="0"
+				Grid.Column="0"
+				FontSize="14"
+				Padding="3,2"
+				Content ="Ошибка"
+			/>
+
+			<Image
+				Grid.Row="1"
+				Grid.Column="0"
+				Width="35"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Source = "/Assets/error.ico"
+			/>
+			<Border
+				Grid.Row="1"
+				Grid.Column="1"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center">
+
+				<TextBlock
+					Name="MessageText"
+					Width="392"
+					FontSize="16"
+					TextWrapping="WrapWithOverflow"
+					MaxLines="3"
+				/>
+			</Border>
+
+			<Canvas
+				Name ="Line"
+				Grid.Row="2"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				Width="566"
+				Height="1"
+				Margin ="0,-5,0,0"
+				Background ="#ececec"
+			/>
+			<Canvas
+				Grid.Row="3"
+				Grid.Column="0"
+				Grid.ColumnSpan="2"
+				Margin ="0,-2,0,0"
+				Background ="#f6f6f6">
+
+				<Button
+					Name="Ok"
+					Height="42"
+					Width="120"
+					Background ="#ececec"
+					Canvas.Top="16"
+					Canvas.Left="338"
+					Content="OK"
+					IsCancel="True"
+					IsDefault="True"
+					Focusable="True"
+					Click="OkClicked">
+
+					<Button.Styles>
+						<Style Selector="Button:focus-visible /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="BorderThickness" Value="2"/>
+							<Setter Property="BorderBrush" Value="#0078d7"/>
+							<Setter Property="Background" Value="#d6d6d6"/>
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+							<Setter Property="Foreground" Value="#1C547D"/>
+							<Setter Property="Background" Value="#e5f1fb"/>
+							<Setter Property="BorderBrush" Value="#0078d7"/>
+						</Style>
+					</Button.Styles>
+				</Button>
+			</Canvas>
+
+		</Grid>
+	</Border>
+</Window>
+
+

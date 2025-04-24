@@ -14,7 +14,7 @@ internal static class DataService
         using MySqlConnection connection = new (Configuration.Instance.ConnectionString);
 
         error = string.Empty;
-        carPasses = new ();
+        carPasses = [];
 
         try
         {
@@ -34,7 +34,7 @@ internal static class DataService
 
             WriteCarPassesInto (carPasses, reader);
         }
-        catch (Exception ex)
+        catch
         {
             error = "Запрос к базе данных не может быть обработан. \nОбратитесь в отдел технического обеспечения по тел. 324-646";
             

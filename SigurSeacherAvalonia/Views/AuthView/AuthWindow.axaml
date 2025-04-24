@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		
+		xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+		
+        mc:Ignorable="d" d:DesignWidth="" d:DesignHeight=""
+		x:Class="SigurSeacherAvalonia.Views.AuthView.AuthWindow"
+		WindowStartupLocation="CenterScreen"
+		CanResize="False"
+		SizeToContent="WidthAndHeight"
+		Padding="16,0,16,16"
+		Icon="/Assets/car_icon.ico"
+        Title="Авторизация">
+	
+	<Grid
+		ColumnDefinitions="336"
+		RowDefinitions="40 40 40 40">
+		
+		<Label
+			Grid.Row="0"
+			VerticalAlignment="Bottom"
+			FontSize="20"
+			Content="Пароль:"
+		/>
+		<TextBox
+			Name="PasswordTextBox"
+			Grid.Row="1"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			CornerRadius="0"
+			VerticalContentAlignment="Center"
+			HorizontalContentAlignment="Left"
+			FontSize="16"
+			MaxLength="12"
+			PasswordChar="*">
+
+			<i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior SourceObject="PasswordTextBox" EventName="GotFocus">
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="BorderBrush" Value="#0078d7"/>
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="BorderThickness" Value="{StaticResource FocusedThicknes}"/>
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="Padding" Value="{StaticResource FocusPadding}"/>
+				</ia:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior SourceObject="PasswordTextBox" EventName="LostFocus">
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="BorderBrush" Value="#969696"/>
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="BorderThickness" Value="{StaticResource UnfocusedThicknes}"/>
+					<ia:ChangePropertyAction TargetObject="CheckButton" PropertyName="Padding" Value="{StaticResource UnfocusPadding}"/>
+				</ia:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+			
+		</TextBox>
+		<Label
+			Name="ErrorLabel"
+			Grid.Row="2"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Top"
+			FontSize="16"
+			FontStyle="Italic"
+			Foreground="Red"
+			IsVisible="False"
+			Content="Пароль введен неверно"
+		/>
+		<Button
+			Name="CheckButton"
+			Grid.Row="3"
+			IsCancel="True"
+			IsDefault="True"
+			Focusable="False"
+			Click="AuthClicked"
+			Content="Войти"
+		/>
+	</Grid>
+</Window>

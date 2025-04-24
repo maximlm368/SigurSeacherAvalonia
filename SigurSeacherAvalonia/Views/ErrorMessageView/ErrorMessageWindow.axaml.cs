@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 
-namespace SigurSeacherAvalonia.Views.ErrorMessage;
+namespace SigurSeacherAvalonia.Views.ErrorMessageView;
 
 public sealed partial class MessageWindow : Window
 {
@@ -14,9 +14,9 @@ public sealed partial class MessageWindow : Window
 
     public MessageWindow ( string message ) : this ()
     {
-        messageText.Text = message;
-        ok.FocusAdorner = null;
-        Activated += ( s, a ) => ok.Focus (NavigationMethod.Tab, KeyModifiers.None);
+        MessageText.Text = message;
+        Ok.FocusAdorner = null;
+        Activated += ( s, a ) => Ok.Focus (NavigationMethod.Tab, KeyModifiers.None);
     }
 
 
