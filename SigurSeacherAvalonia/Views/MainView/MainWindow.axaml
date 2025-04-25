@@ -27,133 +27,134 @@
 
 	</Window.Styles>
 
+
 	<Grid
-		RowDefinitions="126 * 8"
-		Background="#f0f0f0"
-		TabIndex="0">
+		Grid.Row="0"
+		ColumnDefinitions="50 232 206 131 131 *"
+		RowDefinitions="30 43 40 13 * 8"
+		Background="#f0f0f0">
 
-		<Grid
-			Grid.Row="0"
-			ColumnDefinitions="50 232 206 131 131 *"
-			RowDefinitions="30 43 40 13"
-			Background="#f0f0f0">
+		<Label
+			Grid.Column="1"
+			Grid.Row="1"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			FontSize="20"
+			Content="Номер автомобиля:"
+		/>
+		
+		<TextBox
+			Name = "DataFilterTextBox"
+			Grid.Column="2"
+			Grid.Row="1"
+			VerticalAlignment="Stretch"
+			VerticalContentAlignment="Center"
+			MaxLength="6"
+			FontSize="20"
+			CornerRadius="0"
+			Background="White"
+			TabIndex="1"
+			Text="{Binding CarNumber}">
 
-			<Label
-				Grid.Column="1"
-				Grid.Row="1"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				FontSize="20"
-				Content="Номер автомобиля:"
-			/>
-			<TextBox
-				Name = "DataFilterTextBox"
-				Grid.Column="2"
-				Grid.Row="1"
-				VerticalAlignment="Stretch"
-				VerticalContentAlignment="Center"
-				MaxLength="6"
-				FontSize="20"
-				CornerRadius="0"
-				Background="White"
-				TabIndex="1"
-				Text="{Binding CarNumber}">
-
-				<i:Interaction.Behaviors>
-					<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="GotFocus">
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#0078d7"/>
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource FocusedThicknes}"/>
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource FocusPadding}"/>
+			<i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="GotFocus">
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#0078d7"/>
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource FocusedThicknes}"/>
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource FocusPadding}"/>
+				</ia:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="LostFocus">
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#969696"/>
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource UnfocusedThicknes}"/>
+					<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource UnfocusPadding}"/>
 					</ia:EventTriggerBehavior>
-				</i:Interaction.Behaviors>
-				<i:Interaction.Behaviors>
-					<ia:EventTriggerBehavior SourceObject="DataFilterTextBox" EventName="LostFocus">
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderBrush" Value="#969696"/>
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="BorderThickness" Value="{StaticResource UnfocusedThicknes}"/>
-						<ia:ChangePropertyAction TargetObject="SearchButton" PropertyName="Padding" Value="{StaticResource UnfocusPadding}"/>
-					</ia:EventTriggerBehavior>
-				</i:Interaction.Behaviors>
-				
-			</TextBox>
-			<Button
-				Name = "SearchButton"
-				Grid.Column="3"
-				Grid.Row="1"
-				HorizontalAlignment="Right"
-				VerticalContentAlignment="Center"
-				IsDefault="True"
-				TabIndex="2"
-				Command="{Binding SearchCommand}"
-				Content="Найти">
+			</i:Interaction.Behaviors>
+		</TextBox>
 
-				<Button.FocusAdorner>
-					<FocusAdornerTemplate>
-						<Border
-							BorderThickness="2"
-							BorderBrush="#0078d7">
-						</Border>
-					</FocusAdornerTemplate>
-				</Button.FocusAdorner>
-			</Button>
-			<Button
-				Name = "ClearButton"
-				Grid.Column="4"
-				Grid.Row="1"
-				HorizontalAlignment="Right"
-				TabIndex="3"
-				Command="{Binding ClearCommand}"
-				Content="Очистить">
+		<Button
+			Name="SearchButton"
+			Grid.Column="3"
+			Grid.Row="1"
+			HorizontalAlignment="Right"
+			VerticalContentAlignment="Center"
+			IsDefault="True"
+			TabIndex="2"
+			Command="{Binding SearchCommand}"
+			Content="Найти">
 
-				<Button.FocusAdorner>
-					<FocusAdornerTemplate>
-						<Border
-							BorderThickness="2"
-							BorderBrush="#0078d7">
-						</Border>
-					</FocusAdornerTemplate>
-				</Button.FocusAdorner>
-			</Button>
-			<CheckBox
-				Grid.Column="2"
-				Grid.Row="2"
-				HorizontalAlignment="Stretch"
-				CornerRadius="0"
-				FontSize="20"
-				IsChecked="{Binding IsExpired}"
-				Content="в т.ч. истекшие">
+			<Button.FocusAdorner>
+				<FocusAdornerTemplate>
+					<Border
+						BorderThickness="2"
+						BorderBrush="#0078d7">
+					</Border>
+				</FocusAdornerTemplate>
+			</Button.FocusAdorner>
+		</Button>
 
-				<CheckBox.Styles>
-					<Style Selector="CheckBox /template/ Grid>Grid>Viewbox>Panel>Panel">
-						<Setter Property="Background" Value="White"/>
-					</Style>
-					<Style Selector="CheckBox/template/Grid>Grid>Viewbox">
-						<Setter Property="Height" Value="18"/>
-						<Setter Property="Width" Value="18"/>
-					</Style>
-					<Style Selector="CheckBox:checked/template/Path#CheckGlyph">
-						<Setter Property="Fill" Value="Blue"/>
-						<Setter Property="IsVisible" Value="True"/>
-						<Setter Property="Stroke" Value="#000000"/>
-					</Style>
-					<Style Selector="CheckBox/template/Grid>Grid">
-						<Setter Property="Margin" Value="2,0,0,0"/>
-					</Style>
-				</CheckBox.Styles>
+		<Button
+			Grid.Column="4"
+			Grid.Row="1"
+			HorizontalAlignment="Right"
+			VerticalContentAlignment="Center"
+			IsDefault="True"
+			TabIndex="2"
+			Command="{Binding ClearCommand}"
+			Content="Очистить">
 
-				<CheckBox.FocusAdorner>
-					<FocusAdornerTemplate>
-						<Border 
-							BorderThickness="2"
-							BorderBrush="#0078d7">
-						</Border>
-					</FocusAdornerTemplate>
-				</CheckBox.FocusAdorner>
-			</CheckBox>
-		</Grid>
+			<Button.FocusAdorner>
+				<FocusAdornerTemplate>
+					<Border
+						BorderThickness="2"
+						BorderBrush="#0078d7">
+					</Border>
+				</FocusAdornerTemplate>
+			</Button.FocusAdorner>
+		</Button>
 
+		<CheckBox
+			Grid.Column="2"
+			Grid.Row="2"
+			HorizontalAlignment="Stretch"
+			CornerRadius="0"
+			FontSize="20"
+			IsChecked="{Binding IsExpired}"
+			Content="в т.ч. истекшие">
+
+			<CheckBox.Styles>
+				<Style Selector="CheckBox /template/ Grid>Grid>Viewbox>Panel>Panel">
+					<Setter Property="Background" Value="White"/>
+				</Style>
+				<Style Selector="CheckBox/template/Grid>Grid>Viewbox">
+					<Setter Property="Height" Value="18"/>
+					<Setter Property="Width" Value="18"/>
+				</Style>
+				<Style Selector="CheckBox:checked/template/Path#CheckGlyph">
+					<Setter Property="Fill" Value="Blue"/>
+					<Setter Property="IsVisible" Value="True"/>
+					<Setter Property="Stroke" Value="#000000"/>
+				</Style>
+				<Style Selector="CheckBox/template/Grid>Grid">
+					<Setter Property="Margin" Value="2,0,0,0"/>
+				</Style>
+			</CheckBox.Styles>
+
+			<CheckBox.FocusAdorner>
+				<FocusAdornerTemplate>
+					<Border
+						BorderThickness="2"
+						BorderBrush="#0078d7">
+					</Border>
+				</FocusAdornerTemplate>
+			</CheckBox.FocusAdorner>
+		</CheckBox>
+		
 		<DataGrid
 			Name="CarsGrid"
-			Grid.Row="1"
+			Grid.Row="4"
+			Grid.Column="0"
+			Grid.ColumnSpan="6"
 			ItemsSource="{Binding Cars}"
 			IsReadOnly="True"
 			GridLinesVisibility="All"
@@ -186,7 +187,7 @@
 						<DataTemplate >
 							<Label
 								FontSize="20"
-								Width="140"
+								Width="150"
 								Height="32"
 								HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Center"
@@ -248,14 +249,14 @@
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
 
-				<DataGridTemplateColumn Width="130"  CanUserSort="True" SortMemberPath="ExpirationDate">
+				<DataGridTemplateColumn Width="140"  CanUserSort="True" SortMemberPath="ExpirationDate">
 					<DataGridTemplateColumn.HeaderTemplate>
 						<DataTemplate>
 							<Label
 								FontSize="20"
-								Width="130"
-								HorizontalAlignment="Left"
-								Padding="5,5"
+								Width="180"
+								HorizontalAlignment="Stretch"
+								HorizontalContentAlignment="Center"
 								Height="32"
 								Background="White"
 								Foreground="Black"
@@ -341,7 +342,7 @@
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
 
-				<DataGridTemplateColumn MinWidth="234" Width="*" CanUserSort="True" SortMemberPath="Comments">
+				<DataGridTemplateColumn MinWidth="224" Width="*" CanUserSort="True" SortMemberPath="Comments">
 					<DataGridTemplateColumn.HeaderTemplate>
 						<DataTemplate>
 							<Label
@@ -361,7 +362,7 @@
 								Background="#ffffce">
 								<TextBlock
 									FontSize="20"
-									MinWidth="200"
+									MinWidth="190"
 									HorizontalAlignment="Left"
 									VerticalAlignment="Center"
 									Padding="5,0,15,0"

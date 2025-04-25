@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SigurSeacher.Avalonia", "SigurSeacherAvalonia\SigurSeacher.Avalonia.csproj", "{AD256E30-D89F-406C-AAE4-1B8ACE2F5B4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{1CA5A689-293C-442D-976D-5A2000714AC5}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{4B610571-DCA2-436E-BF4C-7F756E15A59D}"
 EndProject

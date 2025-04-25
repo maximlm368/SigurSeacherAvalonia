@@ -11,7 +11,7 @@ internal sealed class DataFilter
         {'e','е'}, {'t','т'}, {'y','у'}, {'o','о'}, {'p','р'}, {'a','а'}, {'h','н'}, {'k','к'}, {'x','х'}, {'c','с'}, {'b','в'}, {'m','м'},
         {'е','e'}, {'т','t'}, {'у','y'}, {'о','o'}, {'р','p'}, {'а','a'}, {'н','h'}, {'к','k'}, {'х','x'}, {'с','c'}, {'в','b'}, {'м','m'}
     };
-    private static readonly char [] _screenables = { '.', '*', '+', '?', '[', ']', '(', ')', '{', '}', '|' };
+    private static readonly HashSet<char> _screenables = new () { '.', '*', '+', '?', '[', ']', '(', ')', '{', '}', '|' };
     private static readonly char [] _ignorables = { '\'', '\\' };
     private static readonly char [] _glyphs = new char [24];
 
@@ -35,7 +35,7 @@ internal sealed class DataFilter
         {
             char low = char.ToLowerInvariant (glyph);
 
-            //if ( _banedGlyphs.Contains (glyph) ) continue;
+            if ( _ignorables.Contains (glyph) ) continue;
 
             if ( _glyphMap.ContainsKey (low) )
             {

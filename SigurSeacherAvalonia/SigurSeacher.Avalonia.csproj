@@ -38,9 +38,6 @@
     <AvaloniaResource Update="Assets\car_icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaResource>
-    <AvaloniaResource Update="Assets\warning-alert.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </AvaloniaResource>
   </ItemGroup>
 
   <ItemGroup>
